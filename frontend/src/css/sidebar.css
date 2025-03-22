@@ -1,100 +1,83 @@
-/* Sidebar */
 .sidebar {
-    width: 250px;
+    width: 200px;
     height: 100vh;
-    background-color: white; /* White background */
-    color: black; /* Text color */
+    background-color: #2c3e50;
+    color: white;
     position: fixed;
     top: 0;
     left: 0;
-    padding-top: 20px;
-    transition: width 0.3s ease-in-out;
+    padding: 20px;
     display: flex;
     flex-direction: column;
+    transition: width 0.3s ease-in-out;
+  }
+  
+  .sidebar.collapsed {
+    width: 60px;
+  }
+  
+  .sidebar-header {
+    display: flex;
+    align-items: center;
     justify-content: space-between;
-    overflow: hidden;
-    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1); /* Light shadow */
-}
-
-/* Collapsed Sidebar */
-.sidebar.closed {
-    width: 80px;
-}
-
-/* Sidebar Title (Toggle on click) */
-.sidebar-title {
-    text-align: center;
-    font-size: 18px;
-    font-weight: bold;
-    padding: 15px;
-    background: white;
+    margin-bottom: 20px;
+  }
+  
+  .menu-icon {
+    font-size: 24px;
     cursor: pointer;
-    border-bottom: 1px solid rgba(184, 182, 182, 0.389); /* Grey border */
-    color: black;
-}
+  }
+  
+  .sidebar h2 {
+    font-size: 18px;
+    text-align: center;
+   
+    
 
-.sidebar-title:hover {
-    background: white smoke;
-}
-
-/* Sidebar Menu */
-.menu {
+  }
+  
+  .sidebar ul {
     list-style: none;
     padding: 0;
-    margin: 0;
-    flex-grow: 1;
-}
-
-/* Sidebar Items */
-.menu li {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
+  }
+  
+  .sidebar ul li {
+    margin: 15px 0;
     padding: 10px;
-}
-
-/* Sidebar Links */
-.menu li .nav-link {
-    color: black;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    padding: 15px;
-    width: 100%;
     border-radius: 5px;
-    transition: background 0.3s;
-    white-space: nowrap;
-}
-
-/* Sidebar Hover */
-.menu li .nav-link:hover {
-    background-color: rgba(128, 128, 128, 0.23); /* Grey hover effect */
+    transition: background 0.3s ease-in-out;
+  }
+  
+  .sidebar ul li a {
+    text-decoration: none;
     color: white;
-}
-
-/* Sidebar Icons */
-.menu li .nav-link svg {
-    margin-right: 10px;
-    font-size: 18px;
-    color: WindowsBlue; /* Windows Blue for icons */
-}
-
-/* Hide text when sidebar is collapsed */
-.sidebar.closed .menu li .nav-link .link-text {
+    font-size: 16px;
+    display: block;
+  }
+  
+  .sidebar ul li:hover {
+    background-color: #34495e;
+  }
+  
+  .sidebar ul li.active {
+    background-color: #1abc9c;
+    font-weight: bold;
+  }
+  
+  /* Hide text when sidebar is collapsed */
+  .sidebar.collapsed h2 {
     display: none;
-}
-
-/* Align icons properly when collapsed */
-.sidebar.closed .menu li .nav-link {
-    justify-content: center;
-}
-
-/* Logout Button */
-.logout {
-    width: 100%; 
-    padding: 10px;
-    margin-bottom: 20px; /* Add space above it */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+  }
+  
+  .sidebar.collapsed ul li a {
+    text-align: center;
+    font-size: 0;
+  }
+  
+  /* Adjust icon in collapsed mode */
+  .sidebar.collapsed .menu-icon {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+  }
+  

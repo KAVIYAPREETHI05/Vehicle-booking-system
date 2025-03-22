@@ -1,45 +1,63 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { FiMenu, FiHome, FiBook, FiClock, FiCheckCircle, FiPhone } from "react-icons/fi";
+import { FaCar, FaUserTie, FaClipboardList, FaUsersCog, FaClipboardCheck } from "react-icons/fa";
+import "../css/sidebar.css";
 
-const Sidebar = ({ role, onLogout }) => {
+const Sidebar = () => {
+  const [isCollapsed, setIsCollapsed] = useState(false);
+  const location = useLocation();
+
+  // Toggle sidebar state
+  const toggleSidebar = () => {
+    setIsCollapsed(!isCollapsed);
+  };
+
+  const isStudent = location.pathname.startsWith("/users/students");
+  const isDriver = location.pathname.startsWith("/users/drivers");
+  const isAdmin = location.pathname.startsWith("/admin");
+
+  const studentMenu = [
+    { path: "/users/students/dashboard", label: " Dashboard", icon: <FiHome /> },
+    { path: "/users/students/book-vehicle", label: " Book Vehicle", icon: <FiBook /> },
+    { path: "/users/students/booking-history", label: " Booking History", icon: <FiClock /> },
+    { path: "/users/students/request-status", label: " Request Status", icon: <FiCheckCircle /> },
+    { path: "/users/students/contact-support", label: " Contact Support", icon: <FiPhone /> },
+  ];
+
+  const driverMenu = [
+    { path: "/users/drivers/dashboard", label: " Dashboard", icon: <FiHome /> },
+    { path: "/users/drivers/requests", label: " Ride Requests", icon: <FaClipboardList /> },
+    { path: "/users/drivers/accepted-rides", label: " Accepted Rides", icon: <FiCheckCircle /> },
+    { path: "/users/drivers/completed-rides", label: " Completed Rides", icon: <FaClipboardCheck /> },
+  ];
+
+  const adminMenu = [
+    { path: "/admin/dashboard", label: " Dashboard", icon: <FiHome /> },
+    { path: "/admin/add-vehicle", label: " Add Vehicle", icon: <FaCar /> },
+    { path: "/admin/assign-driver", label: " Assign Driver", icon: <FaUserTie /> },
+    { path: "/admin/vehicle-management", label: " Vehicle Management", icon: <FaUsersCog /> },
+    { path: "/admin/driver-management", label: "  Driver Management", icon: <FaClipboardCheck /> },
+  ];
+
+  const menuItems = isStudent ? studentMenu : isDriver ? driverMenu : isAdmin ? adminMenu : [];
+
   return (
-    <div className="sidebar">
-      <h2>{role.toUpperCase()} PANEL</h2>
-      
-      {/* Admin Sidebar */}
-      {role === "admin" && (
-        <>
-          <Link to="/admin/dashboard">Dashboard</Link>
-          <Link to="/admin/add-vehicle">Add Vehicle</Link>
-          <Link to="/admin/assign-driver">Assign Driver</Link>
-          <Link to="/admin/vehicle-management">Vehicle Management</Link>
-          <Link to="/admin/driver-management">Driver Management</Link>
-        </>
-      )}
-
-      {/* User Sidebar */}
-      {role === "user" && (
-        <>
-          <Link to="/users/students/dashboard">Dashboard</Link>
-          <Link to="/users/students/book-vehicle">Book Vehicle</Link>
-          <Link to="/users/students/booking-history">Booking History</Link>
-          <Link to="/users/students/request-status">Request Status</Link>
-          <Link to="/users/students/contact-support">Contact Support</Link>
-        </>
-      )}
-
-      {/* Driver Sidebar */}
-      {role === "driver" && (
-        <>
-          <Link to="/users/drivers/dashboard">Dashboard</Link>
-          <Link to="/users/drivers/requests">Ride Requests</Link>
-          <Link to="/users/drivers/accepted-rides">Accepted Rides</Link>
-          <Link to="/users/drivers/completed-rides">Completed Rides</Link>
-        </>
-      )}
-
-      {/* Logout Button */}
-      <button onClick={onLogout}>Logout</button>
+    <div className={`sidebar ${isCollapsed ? "collapsed" : ""}`}>
+      <div className="sidebar-header">
+        <FiMenu className="menu-icon" onClick={toggleSidebar} />
+        {!isCollapsed && <h2>{isStudent ? "Student Panel" : isDriver ? "Driver Panel" : "Admin Panel"}</h2>}
+      </div>
+      <ul>
+        {menuItems.map((item) => (
+          <li key={item.path} className={location.pathname === item.path ? "active" : ""}>
+            <Link to={item.path}>
+              <span className="menu-icon">{item.icon}</span>
+              {!isCollapsed && <span className="menu-text">{item.label}</span>}
+            </Link>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
