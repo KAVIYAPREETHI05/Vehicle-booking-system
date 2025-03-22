@@ -1,0 +1,51 @@
+.book-vehicle-container {
+    max-width: 400%;
+    margin: auto;
+    padding: 20px;
+    background: white;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+  
+  h3 {
+    color: WindowsBlue;
+    text-align: center;
+    
+  }
+  
+  p {
+    text-align: center;
+    color: grey;
+  }
+  
+  .book-vehicle-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  label {
+    margin-top: 10px;
+    font-weight: bold;
+  }
+  
+  input {
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid grey;
+    border-radius: 4px;
+  }
+  
+  .book-btn {
+    margin-top: 15px;
+    padding: 10px;
+    background: WindowsBlue;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .book-btn:hover {
+    background: grey;
+  }
+  
