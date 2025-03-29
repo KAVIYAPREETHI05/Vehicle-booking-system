@@ -1,0 +1,26 @@
+.vehicle-management-container {
+    width: 80%;
+    margin: auto;
+    text-align: center;
+  }
+  
+  .vehicle-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .vehicle-table th, .vehicle-table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .vehicle-table th {
+    background-color: #f4f4f4;
+  }
+  
+  .vehicle-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
