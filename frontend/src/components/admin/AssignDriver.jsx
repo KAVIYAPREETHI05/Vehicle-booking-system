@@ -17,7 +17,7 @@ const AssignDriver = () => {
 
   const fetchUnassignedVehicles = async () => {
     try {
-      const response = await fetch("http://localhost:5000/unassigned-vehicles");
+      const response = await fetch("http://localhost:5000/available-vehicles");
       const data = await response.json();
       setVehicles(data);
     } catch (error) {
@@ -29,9 +29,25 @@ const AssignDriver = () => {
     try {
       const response = await fetch("http://localhost:5000/unassigned-drivers");
       const data = await response.json();
-      setDrivers(data);
+
+      // Hardcoded drivers
+      const hardcodedDrivers = [
+        { id: "d101", name: "Jayaram" },
+        { id: "d102", name: "Kathikeyan" },
+        { id: "d103", name: "shrivanth" },
+      ];
+
+      // Combine fetched drivers and hardcoded drivers
+      setDrivers([...data, ...hardcodedDrivers]);
     } catch (error) {
       console.error("Error fetching drivers:", error);
+
+      // If fetch fails, use only hardcoded drivers
+      setDrivers([
+        { id: "d101", name: "Jayaram" },
+        { id: "d102", name: "karthikeyan" },
+        { id: "d103", name: "shrivanth" },
+      ]);
     }
   };
 
@@ -41,7 +57,7 @@ const AssignDriver = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!assignment.vehicleNo || !assignment.driver || !assignment.timingSlot) {
       alert("All fields are required!");
       return;
@@ -56,8 +72,15 @@ const AssignDriver = () => {
 
       const data = await response.json();
       if (response.ok) {
+        await fetch(`http://localhost:5000/update-vehicle-status/${assignment.vehicleNo}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ status: "In Use" }),
+        });
+
         alert("Driver assigned successfully!");
         setAssignment({ vehicleNo: "", driver: "", timingSlot: "" });
+
         fetchUnassignedVehicles();
         fetchUnassignedDrivers();
       } else {
@@ -102,7 +125,8 @@ const AssignDriver = () => {
           <label>Timing Slot</label>
           <select name="timingSlot" value={assignment.timingSlot} onChange={handleChange} required>
             <option value="">Select Slot</option>
-            <option value="Morning">Morning (8 AM - 12 PM)</option>
+            <option value="Early Morning">Morning (7 AM - 9 AM)</option>
+            <option value="Morning">Morning (9 AM - 12 PM)</option>
             <option value="Afternoon">Afternoon (12 PM - 4 PM)</option>
             <option value="Evening">Evening (4 PM - 8 PM)</option>
           </select>
