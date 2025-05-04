@@ -30,23 +30,27 @@ const AssignDriver = () => {
       const response = await fetch("http://localhost:5000/unassigned-drivers");
       const data = await response.json();
 
-      // Hardcoded drivers
       const hardcodedDrivers = [
         { id: "d101", name: "Jayaram" },
-        { id: "d102", name: "Kathikeyan" },
-        { id: "d103", name: "shrivanth" },
+        { id: "d102", name: "Karthikeyan" },
+        { id: "d103", name: "Shrivanth" },
       ];
 
-      // Combine fetched drivers and hardcoded drivers
-      setDrivers([...data, ...hardcodedDrivers]);
+      const combined = [...data];
+      hardcodedDrivers.forEach((hardcoded) => {
+        const exists = data.some(
+          (driver) => driver.name.toLowerCase() === hardcoded.name.toLowerCase()
+        );
+        if (!exists) combined.push(hardcoded);
+      });
+
+      setDrivers(combined);
     } catch (error) {
       console.error("Error fetching drivers:", error);
-
-      // If fetch fails, use only hardcoded drivers
       setDrivers([
         { id: "d101", name: "Jayaram" },
-        { id: "d102", name: "karthikeyan" },
-        { id: "d103", name: "shrivanth" },
+        { id: "d102", name: "Karthikeyan" },
+        { id: "d103", name: "Shrivanth" },
       ]);
     }
   };
@@ -72,11 +76,14 @@ const AssignDriver = () => {
 
       const data = await response.json();
       if (response.ok) {
-        await fetch(`http://localhost:5000/update-vehicle-status/${assignment.vehicleNo}`, {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ status: "In Use" }),
-        });
+        await fetch(
+          `http://localhost:5000/update-vehicle-status/${assignment.vehicleNo}`,
+          {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ status: "In Use" }),
+          }
+        );
 
         alert("Driver assigned successfully!");
         setAssignment({ vehicleNo: "", driver: "", timingSlot: "" });
@@ -96,7 +103,6 @@ const AssignDriver = () => {
     <div className="assign-driver-container">
       <h2>Assign Driver to Vehicle</h2>
       <form onSubmit={handleSubmit} className="assign-driver-form">
-        
         <div>
           <label>Vehicle No</label>
           <select name="vehicleNo" value={assignment.vehicleNo} onChange={handleChange} required>

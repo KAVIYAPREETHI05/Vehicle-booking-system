@@ -1,19 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import '../../../css/user/drivers/completedRides.css';
 
 const CompletedRides = () => {
-  const [completedRides, setCompletedRides] = useState([
-    { id: 1, user: "David White", pickup: "Hostel", drop: "Airport" },
-    { id: 2, user: "Emma Green", pickup: "Library", drop: "Shopping Mall" },
-  ]);
+  const [completedRides, setCompletedRides] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:5000/completed-rides")
+      .then((res) => res.json())
+      .then((data) => setCompletedRides(data))
+      .catch((err) => console.error("Error fetching completed rides:", err));
+  }, []);
 
   return (
     <div className="completed-rides">
-      <h2>Completed Rides</h2>
+      <h2>✅ Completed Rides</h2>
       <ul>
         {completedRides.length > 0 ? (
           completedRides.map((ride) => (
             <li key={ride.id}>
-              <strong>{ride.user}</strong> - Pickup: {ride.pickup}, Drop: {ride.drop}
+              <strong>{ride.name}</strong> - {ride.place} ({ride.reason}) at {ride.timing}
             </li>
           ))
         ) : (

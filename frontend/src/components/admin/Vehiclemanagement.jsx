@@ -3,6 +3,7 @@ import "../../css/admin/VehicleManagement.css";
 
 const VehicleManagement = () => {
   const [vehicles, setVehicles] = useState([]);
+  const [statusOptions] = useState(["Available", "In Use", "Under Maintenance"]);
 
   // Fetch Vehicles from Backend
   const fetchVehicles = async () => {
@@ -15,7 +16,37 @@ const VehicleManagement = () => {
     }
   };
 
-  // Load vehicles when the component mounts
+  // Update vehicle status in the backend
+  const updateStatus = async (vehicleNumber, status) => {
+    try {
+      const response = await fetch(`http://localhost:5000/update-vehicle-status/${vehicleNumber}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ status }),
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        console.error("❌ Failed to update status:", error);
+      } else {
+        console.log("✅ Vehicle status updated successfully!");
+      }
+    } catch (error) {
+      console.error("❌ Error updating vehicle status:", error);
+    }
+  };
+
+  // Handle dropdown change and update backend
+  const handleStatusChange = (index, newStatus) => {
+    const updatedVehicles = [...vehicles];
+    updatedVehicles[index].status = newStatus;
+    setVehicles(updatedVehicles);
+
+    updateStatus(updatedVehicles[index].vehicleNumber, newStatus);
+  };
+
   useEffect(() => {
     fetchVehicles();
   }, []);
@@ -42,7 +73,18 @@ const VehicleManagement = () => {
               <td>{vehicle.driver}</td>
               <td>{vehicle.seatingCapacity}</td>
               <td>{vehicle.vehicleNumber}</td>
-              <td>{vehicle.status}</td>
+              <td>
+                <select
+                  value={vehicle.status}
+                  onChange={(e) => handleStatusChange(index, e.target.value)}
+                >
+                  {statusOptions.map((option) => (
+                    <option key={option} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </select>
+              </td>
             </tr>
           ))}
         </tbody>

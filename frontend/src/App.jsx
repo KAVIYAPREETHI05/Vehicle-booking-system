@@ -5,7 +5,6 @@ import Sidebar from "./components/sidebar";
 
 import Dashboard from "./components/user/students/Dashboard";
 import BookVehicle from "./components/user/students/BookVehicle";
-import BookingHistory from "./components/user/students/BookingHistory";
 import RequestStatus from "./components/user/students/RequestStatus";
 import ContactSupport from "./components/user/students/ContactSupport";
 
@@ -40,7 +39,6 @@ const App = () => {
             {/* Student Routes */}
             <Route path="/users/students/dashboard" element={<Dashboard />} />
             <Route path="/users/students/book-vehicle" element={<BookVehicle />} />
-            <Route path="/users/students/booking-history" element={<BookingHistory />} />
             <Route path="/users/students/request-status" element={<RequestStatus />} />
             <Route path="/users/students/contact-support" element={<ContactSupport />} />
 

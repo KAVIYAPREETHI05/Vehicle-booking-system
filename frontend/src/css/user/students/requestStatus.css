@@ -1,0 +1,69 @@
+.request-status-container {
+    padding: 30px;
+    background: #f8f9fa;
+  }
+  
+  .status-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .status-table th,
+  .status-table td {
+    padding: 12px 15px;
+    text-align: center;
+    border: 1px solid #dee2e6;
+  }
+  
+  .status-table th {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .status-btn {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    color: white;
+    text-transform: capitalize;
+  }
+  
+  .status-btn.pending {
+    background-color: orange;
+  }
+  
+  .status-btn.accepted {
+    background-color: green;
+  }
+  
+  .status-btn.completed {
+    background-color: gray;
+  }
+  .status-btn.cancelled {
+    background-color: #ff4d4d;;
+  }
+
+  .cancel-btn {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .cancel-btn:hover {
+    background-color: #e60000;
+  }
+  
+  .cancel-btn:disabled {
+    background-color: #cecaca;
+    cursor: not-allowed;
+  }
+  
+  

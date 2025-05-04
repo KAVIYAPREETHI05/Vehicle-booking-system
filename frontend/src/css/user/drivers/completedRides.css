@@ -1,0 +1,37 @@
+.completed-rides {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+    border: 2px solid #4caf50;
+    border-radius: 12px;
+    background-color: #f0fff4;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: "Segoe UI", sans-serif;
+  }
+  
+  .completed-rides h2 {
+    color: #2e7d32;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .completed-rides ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .completed-rides li {
+    background-color: #e8f5e9;
+    padding: 12px 16px;
+    margin-bottom: 10px;
+    border-left: 5px solid #66bb6a;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: transform 0.2s ease;
+  }
+  
+  .completed-rides li:hover {
+    transform: translateX(5px);
+    background-color: #d0f0d8;
+  }
+  

@@ -20,7 +20,6 @@ const Sidebar = () => {
   const studentMenu = [
     { path: "/users/students/dashboard", label: " Dashboard", icon: <FiHome /> },
     { path: "/users/students/book-vehicle", label: " Book Vehicle", icon: <FiBook /> },
-    { path: "/users/students/booking-history", label: " Booking History", icon: <FiClock /> },
     { path: "/users/students/request-status", label: " Request Status", icon: <FiCheckCircle /> },
     { path: "/users/students/contact-support", label: " Contact Support", icon: <FiPhone /> },
   ];
